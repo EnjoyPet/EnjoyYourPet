@@ -341,17 +341,30 @@ app.post('/Ensename/HacerUnPost', upload.single('imagen_post'), (req, res) => {
 
 
 
-app.put('/punt/:id/:tipopunt', (req, res) => {
-  const tipopuntuacion = req.params.tipopunt;
+// Ruta para aumentar los "Me Gusta" en la base de datos
+app.put('/punt/meGusta/:id', (req, res) => {
   const postId = req.params.id;
-  
-  console.log(tipopuntuacion)
-    const sqlQuery = `UPDATE post SET ${tipopuntuacion} = ${tipopuntuacion} + 1 WHERE id_post = ?`;
-    conection.conector.query(sqlQuery, [postId], (err, result) => {
-      if (err) {
-        throw err;
-      }
-      res.send(`${tipopuntuacion} agregado`);
-    });
+
+  const sqlQuery = `UPDATE post SET meGusta_post = meGusta_post + 1 WHERE id_post = ?`;
+  conection.conector.query(sqlQuery, [postId], (err, result) => {
+    if (err) {
+      res.status(500).json({ error: 'No se pudo actualizar la base de datos.' });
+    } else {
+      res.status(200).json({ message: 'Me Gusta actualizado en la base de datos.' });
+    }
+  });
 });
 
+// Ruta para aumentar los "No Me Gusta" en la base de datos
+app.put('/punt/noMeGusta/:id', (req, res) => {
+  const postId = req.params.id;
+
+  const sqlQuery = `UPDATE post SET noMeGusta_post = noMeGusta_post + 1 WHERE id_post = ?`;
+  conection.conector.query(sqlQuery, [postId], (err, result) => {
+    if (err) {
+      res.status(500).json({ error: 'No se pudo actualizar la base de datos.' });
+    } else {
+      res.status(200).json({ message: 'No Me Gusta actualizado en la base de datos.' });
+    }
+  });
+});

@@ -73,16 +73,16 @@
                         <% if (login) { %>
                             <div id="likes_buttons">
                                 <div class="like_button_container">
-                                <button class="meGusta-Button" onclick="meGustaPost(<%= post.id_post %>)">
-                                    Me Gusta
-                                </button>
-                                <span class="likes-count"><%= post.meGusta_post %></span>
+                                    <button class="meGusta-Button" onclick="meGustaPost(<%= post.id_post %>)">
+                                        Me Gusta
+                                    </button>
+                                    <span class="likes-count" id="likes-count-<%= post.id_post %>"><%= post.meGusta_post %></span>
                                 </div>
                                 <div class="like_button_container">
-                                  <button class="noMeGusta-Button" onclick="noMeGustaPost(<%= post.id_post %>)">
-                                    No Me Gusta
-                                </button>
-                                <span class="dislikes-count"><%= post.noMeGusta_post %></span>
+                                    <button class="noMeGusta-Button" onclick="noMeGustaPost(<%= post.id_post %>)">
+                                        No Me Gusta
+                                    </button>
+                                    <span class="dislikes-count" id="dislikes-count-<%= post.id_post %>"><%= post.noMeGusta_post %></span>
                                 </div>
                             </div>
                         <% } else { %>
@@ -105,14 +105,21 @@
                 <% }); %>
             </ul>
             <script>
-                async function meGustaPost(postid,tipoPunt) {
-                    const response = await fetch(`/punt/${postid}/meGusta_Post`, { method: 'PUT' });
-                    location.reload();
-                  }
-                async function noMeGustaPost(postid,tipoPunt) {
-                    const response = await fetch(`/punt/${postid}/noMeGusta_Post`, { method: 'PUT' });
-                    location.reload();
-                  }
+                async function meGustaPost(postid) {
+                    const response = await fetch(`/punt/meGusta/${postid}`, { method: 'PUT' });
+                    if (response.ok) {
+                        const likesCountElement = document.getElementById(`likes-count-${postid}`);
+                        likesCountElement.textContent = parseInt(likesCountElement.textContent) + 1;
+                    }
+                }
+                
+                async function noMeGustaPost(postid) {
+                    const response = await fetch(`/punt/noMeGusta/${postid}`, { method: 'PUT' });
+                    if (response.ok) {
+                        const dislikesCountElement = document.getElementById(`dislikes-count-${postid}`);
+                        dislikesCountElement.textContent = parseInt(dislikesCountElement.textContent) + 1;
+                    }
+                }
             </script>
         </div>        
     </div>
