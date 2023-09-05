@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="shortcut icon" href="/img/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/form.css">
+    <!--<script src="/js/publicity.js"></script>-->
+    <title>Tu mascota</title>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %>
+
+    <% if (login) { %>
+        <script>
+            const log = document.querySelector('.ingresa');
+            const sign = document.querySelector('.register');
+            const cuent = document.querySelector('.cuenta');
+            
+            log.style.visibility = "hidden";
+            sign.style.visibility = "hidden";
+            cuent.style.visibility = "visible";
+        </script>
+        <% } else {%>
+            <script>
+                log.style.visibility = "visible";
+                sign.style.visibility = "visible";
+                cuent.style.visibility = "hidden";
+            </script>
+        <% } %>
+    
+    <!-- <div id="adlateral1"></div>
+    <div id="adlateral2"></div> -->
+
+    <div class="main">
+        <div class="dec_slider">
+            <div class="contenedor-slider">
+                <div class="slider">
+                    <div class="contenido-slider">
+                        <section>
+                            <img src="/img/img001.jpg" alt="">
+                            <h2> La gente que realmente aprecia a los animales siempre pregunta sus nombres</h2>
+                        </section>
+                    </div>
+                    <div class="contenido-slider">
+                        <section>
+                            <img src="/img/img002.jpg" alt="">
+                            <h2>Los ojos de un animal tienen el poder de hablar un gran lenguaje</h2>
+                        </section>
+                    </div>
+                    <div class="contenido-slider">
+                        <section>
+                            <img src="/img/img003.jpg" alt="">
+                            <h2>Los animales no son propiedades o cosas, sino organismos vivientes, sujetos de una vida, que merecen nuestra compasión, respeto, amistad y apoyo</h2>
+                        </section>
+                    </div>
+                    <div class="contenido-slider">
+                        <section>
+                            <img src="/img/img001.jpg" alt="">
+                            <h2>La gente que realmente aprecia a los animales siempre pregunta sus nombres</h2>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="position">
+            <h1>El mundo de tu mascota.</h1>
+            <p>El lugar perfecto para tu mascota.</p>
+        </div>
+    </div>
+    <h2 class="ahorra">Ahorra</h2>
+    <div class="ofertas">
+        <div class="ofertas_div">
+            <section>
+                <img src="/img/placeholder.png" alt="">
+                <h2> $170.000 COP </h2>
+                <h4> 10% OFF</h4>
+            
+            </section>
+        </div>
+        <div class="ofertas_div">
+            <section>
+                <img src="/img/placeholder.png" alt="">
+                <h2> $110.000 COP </h2>
+                <h4> 5% OFF</h4>
+            </section>
+        </div>
+        <div class="ofertas_div">
+            <section>
+                <img src="/img/placeholder.png" alt="">
+                <h2> $100.000 COP </h2>
+                <h4> 10% OFF</h4>
+            
+            </section>
+        </div>
+        <div class="ofertas_div">
+            <section>
+                <img src="/img/placeholder.png" alt="">
+                <h2> $90.000 COP </h2>
+                <h4> 15% OFF</h4>
+            
+            </section>
+        </div>
+        <div class="ofertas_div">
+            <section>
+                <img src="/img/placeholder.png" alt="">
+                <h2> $70.000 COP </h2>
+                <h4> 5% OFF</h4>
+            
+            </section>
+        </div>
+    </div>
+<%- include("./partials/footer.ejs") %>
+    <script src="/js/slider.js"></script>
+    <script src="/public/js/header.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <% if(typeof alert != "undefined"){%>
+        <script>
+            Swal.fire({
+                title:'<%= alertTitle %>',
+                text:'<%= alertMessage %>',
+                icon:'<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location.href='/<%= ruta %>'
+            })
+        </script>
+        <% } %>
+</body>
+</html>     

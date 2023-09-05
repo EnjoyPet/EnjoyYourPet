@@ -1,0 +1,79 @@
+<header class="header_">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <div class="header_class">
+        <a href="/" class="class_logo">
+            <img src="/img/logo.png" alt="" class="logo">
+            <img src="/img/logo01.png" alt="" class="logo01">
+            
+        </a>
+        <nav class="nav_">
+            <ul class="nav_ul">
+                <div id="Hbutton" class="ingresa spanbutton" style="visibility: visible;"><span id="Hbutton" class="material-symbols-outlined">login</span></div>
+                <div id="Hbutton" class="register spanbutton" style="visibility: visible;"><span class="material-symbols-outlined">person_add</span></div>
+                <div id="Hbutton" class="cuenta spanbutton" style="visibility: hidden;"><span class="material-symbols-outlined">account_circle</span></div>
+                <!-- <button id="Hbutton" class="ingresa">Ingresar</button> -->
+                <!-- <button id="Hbutton" class="register">Registrarse</button> -->
+                <!-- <li><a id="Hbutton" class="ingresa" href="">Ingresar</a></li>
+                <li><a id="Hbutton" class="register" href="" >Registrarse</a></li> -->
+            </ul>
+            <img src="/public/img/Login.svg" alt="">
+            <ul class="nav_ul_center">
+                <div class="search_bar">
+                    <input class="input_" type="search" placeholder=" Buscar">
+                    <!-- <div class="btn">
+                        <i class="fas fa-search icon"></i>
+                    </div> -->
+                </div>
+            </ul>
+        </nav>
+    </div> 
+    <div class="header_b">
+        <div class="header_b_secundario">
+            <div class="ico_u ico_serv">
+                <img class="iconos" src="/icos/global.png" alt=""> <h3 class="ico_text">Lugares</h3>
+                <ul class="lugares">
+                    <li><a href=""><i class="fa-solid fa-location-dot"></i>Localización</a></li>
+                    <li><a href=""><i class="fa-solid fa-location-arrow"></i>Petfriendly</a></li>
+                </ul>
+            </div>
+                <div class="ico_d ico_serv">
+                    <img class="iconos" src="/icos/billetera.png" alt=""> <h3 class="ico_text">Compras</h3>
+                    <ul class="compras">
+                        <li><a href=""><i class="fa-solid fa-bone"></i>Mis juguetes</a></li>
+                        <li><a href=""><i class="fa-solid fa-cookie"></i>Tengo hambre</a></li>
+                        <li><a href=""><i class="fa-solid fa-glasses"></i>Soy fashion</a></li>
+                    </ul>
+                </div>
+                <div class="ico_t ico_serv">
+                    <img class="iconos" src="/icos/gatito.png" alt=""> <h3 class="ico_text">Servicios</h3>
+                    <ul class="servicios">
+                        <li><a href=""><i class="fa-solid fa-face-sad-tear"></i>Toy malito</a></li>
+                        <li><a id = "Enseñame-Button"><i class="fa-solid fa-graduation-cap"></i>Enseñame</a></li>
+                    </ul>
+                </div>
+                <div class="ico_c ico_serv">
+                    <div class="ico_img">
+                        <img class="iconos img-compras" src="/icos/compras.png" alt=""> <h3 class="ico_text">Carrito</h3>
+                    </div>
+                    <div class="number">
+                        <p>0</p>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <script src="/js/header.js"></script>
+
+    <%- include("./register.ejs") %>
+
+    <script src="/js/register.js"></script>
+
+    <%- include("./sesion.ejs") %>
+
+    <script src="/js/sesion.js"></script>
+
+    <%- include("./userInfo.ejs") %>
+
+    <script src="/js/userInfo.js"></script>
+</header>

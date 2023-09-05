@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="shortcut icon" href="/img/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/form.css">
+    <!--<script src="/js/publicity.js"></script>-->
+    <title>Tu mascota</title>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %>
+
+    <% if (login) { %>
+        <script>
+            const log = document.querySelector('.ingresa');
+            const sign = document.querySelector('.register');
+            const cuent = document.querySelector('.cuenta');
+            
+            log.style.visibility = "hidden";
+            sign.style.visibility = "hidden";
+            cuent.style.visibility = "visible";
+        </script>
+        <% } else {%>
+            <script>
+                log.style.visibility = "visible";
+                sign.style.visibility = "visible";
+                cuent.style.visibility = "hidden";
+            </script>
+        <% } %>
+
+    <div class="main" style="padding-top: 50px;">
+        <% if (login) { %>
+            <div class="container-post_form">
+                <h1>¡Deja un tip para entrenar a las mascotas!</h1>
+                <h4>Enseña y aprende</h4>
+                <form action="HacerUnPost" id="postForm" method="post" enctype="multipart/form-data">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" name="titulo" id="titulo_post" placeholder="Titulo" maxlength="50" required>
+                    <label for="contenido_post">Contenido</label>
+                    <input type="text" name="contenido_post" id="contenido_post" maxlength="250" required>
+                    <label for="imagen_post">Imagen</label>
+                    <input type="file" name="imagen_post" accept="image/*">
+                    <label for="Categoria_post"></label>
+                    <select name="Categoria_post" id="Categoria_post" required>
+                        <option value="1">Cachorro Grande</option>
+                        <option value="2">Cachorro Mediano</option>
+                        <option value="3">Cachorro Pequeño</option>
+                        <option value="4">Perro Adulto</option>
+                        <option value="5">Gatos</option>
+                        <option value="6">Aves</option>
+                    </select>
+                    <button type="submit">Postear</button>
+                </form>
+            </div>
+        <% } %>
+        <div id="PostsDeUsuarios" class="posts-container">
+            <ul class="post-list">
+                <% posts.forEach(post => { %>
+                    <li class="post-item">
+                        <div class="post-content">
+                            <p class="post-title"><strong><%= post.titulo_post %></strong></p>
+                            <p class="post-description"><%= post.contenido_post %></p>
+                            <% if (post.imagen_post) { %>
+                                <div class="imagen-container">
+                                    <img src="data:image/jpeg;base64,<%= post.imagen_post.toString('base64') %>" alt="Imagen del post">
+                                </div>
+                            <% } %>
+                        </div>
+                        <% if (login) { %>
+                            <div id="likes_buttons">
+                                <div class="like_button_container">
+                                <button class="meGusta-Button" onclick="meGustaPost(<%= post.id_post %>)">
+                                    Me Gusta
+                                </button>
+                                <span class="likes-count"><%= post.meGusta_post %></span>
+                                </div>
+                                <div class="like_button_container">
+                                  <button class="noMeGusta-Button" onclick="noMeGustaPost(<%= post.id_post %>)">
+                                    No Me Gusta
+                                </button>
+                                <span class="dislikes-count"><%= post.noMeGusta_post %></span>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div id="likes_buttons">
+                                <div class="like_button_container">
+                                <span class="meGusta-span">
+                                    Me Gusta
+                                </span>
+                                <span class="likes-count"><%= post.meGusta_post %></span>
+                                </div>
+                                <div class="like_button_container">
+                                  <span class="noMeGusta-span">
+                                    No Me Gusta
+                                  </span>
+                                <span class="dislikes-count"><%= post.noMeGusta_post %></span>
+                                </div>
+                            </div>
+                            <% } %>
+                    </li>
+                <% }); %>
+            </ul>
+            <script>
+                async function meGustaPost(postid,tipoPunt) {
+                    const response = await fetch(`/punt/${postid}/meGusta_Post`, { method: 'PUT' });
+                    location.reload();
+                  }
+                async function noMeGustaPost(postid,tipoPunt) {
+                    const response = await fetch(`/punt/${postid}/noMeGusta_Post`, { method: 'PUT' });
+                    location.reload();
+                  }
+            </script>
+        </div>        
+    </div>
+<%- include("./partials/footer.ejs") %>
+    <script src="/js/slider.js"></script>
+    <script src="/public/js/header.js"></script>
+    <script src="/public/js/Ensename.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <% if(typeof alert != "undefined"){%>
+        <script>
+            Swal.fire({
+                title:'<%= alertTitle %>',
+                text:'<%= alertMessage %>',
+                icon:'<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location.href='/<%= ruta %>'
+            })
+        </script>
+        <% } %>
+</body>
+</html>     

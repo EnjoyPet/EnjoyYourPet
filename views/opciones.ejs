@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="shortcut icon" href="/img/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/form.css">
+    <title>Enjoy - Opciones</title>
+</head>
+<body>
+    <div class="body-opciones">
+        <div class="option-container">
+            <div class="user-name">
+                <% if(login) {%>
+                    <h3> <%= usuario %> </h3>
+                    <% } %>
+            </div>
+            <ul class="lista-opciones">
+                <li class="btncuenta"><h4>Cuenta</h4></li>
+                <li class="btnseguridad"><h4>Seguridad</h4></li>
+                <li class="btnavanzado"><h4>Avanzado</h4></li>
+                <li class="btnayuda"><h4>Ayuda</h4></li>
+            </ul>
+            <div class="back-btn">
+                <h3>Volver</h3>
+            </div>
+        </div>
+        <div Class="cuenta-form selected-options" style="visibility: hidden;">
+            <h3>CUENTA</h3>
+            <form action="ActualizarCuenta" method="post">
+                <h4>Nombre</h4><input id="nombre" type="text" name="nombre" placeholder="Nombre" required>
+                <h4>Tipo de Id</h4><select name="tipid" id="id" class="select-css" required>
+                    <option value="1" selected>Cedula De Ciudadania</option>
+                    <option value="2">Cedula De Extranjeria</option>
+                    <option value="3">Numero De Identificacion Tributaria</option>
+                    <option value="4">Tarjeta De Identidad</option>
+                </select>
+                <h4>Identificacion</h4><input id="id" type="tel" name="id" placeholder="123546879" required>
+                <h4>Tel.</h4><input id="numero" type="tel" name="tel" placeholder="3000000000" required>
+                <h4>Genero</h4><select name="gen" id="gen" class="select-css" required>
+                    <option value="M" selected>Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="N">No Binario</option>
+                    <option value="-">Prefiero No Decirlo</option>
+                </select>
+                <div style="display: inline;">
+                    <input type="submit" class="btn-save" value="Actualizar Datos">
+                </div>
+            </form>
+        </div>
+        <div Class="seguridad-form selected-options" style="visibility: hidden;">
+            <h3>SEGURIDAD</h3>
+            <form action="actualizarSeguridad" method="post">
+                <h4>Correo</h4><input id="correo" type="email" name="correo" placeholder="correo" required>
+                <h4>Contraseña actual</h4><input id="contraseniact" type="password" name="contractual" placeholder="Contraseña actual" required>
+                <h4>Nueva contraseña</h4><input id="contrasenia1" type="password" name="contr" placeholder="Nueva Contraseña" required>
+                <h4>Nueva contraseña</h4><input id="contrasenia2" type="password" name="contr2" placeholder="Nueva Contraseña" required>
+                <div style="display: inline;">
+                    <input type="submit" class="btn-save" value="Actualizar Datos">
+                </div>
+            </form>
+        </div>
+        <div Class="avanzado-form selected-options"style="visibility: hidden;">
+            <h3>AVANZADO</h3>
+            <form action="eliminarCuenta" method="post">
+                <h4>Correo</h4><input id="correo" type="email" name="correo" placeholder="correo" required>
+                <h4>Contraseña</h4><input id="contra1" type="password" name="contra1" placeholder="Contraseña" required>
+                <h4>Repita su contraseña</h4><input id="contra2" type="password" name="contra2" placeholder="Contraseña" required>
+                <div style="display: inline;">
+                    <input type="submit" class="btn-save" value="ELIMINAR CUENTA">
+                </div>
+            </form>
+        </div>
+        <div Class="ayuda-form selected-options"style="visibility: hidden;">
+            <h3>AYUDA</h3>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. In molestias sint, odit ex hic incidunt aspernatur natus error, ipsum numquam cumque facilis eaque quae accusantium necessitatibus et. Autem, facilis vero.
+        </div>
+    </div>
+    </div>
+    <script src="/js/opciones.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <% if(typeof alert != "undefined"){%>
+        <script>
+            Swal.fire({
+                title:'<%= alertTitle %>',
+                text:'<%= alertMessage %>',
+                icon:'<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            })
+        </script>
+        <% } %>
+</body>
+</html>

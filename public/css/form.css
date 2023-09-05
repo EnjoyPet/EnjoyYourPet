@@ -1,0 +1,383 @@
+.modal-container {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+/*
+  pointer-events: none;
+  opacity: 0;  
+  transition: opacity 0.3s ease;*/
+}
+
+.modal {
+  width: 50%;
+  height: 60%;
+  background: #EBE2FC;
+  text-align: center;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  transition-duration: 1s;
+  transform: translateY(0%);
+}
+.close{
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: #c44a4a;
+  color: #fff;
+  line-height: 24px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.modal-img{
+  width: 50%;
+}
+
+.modal-img img{
+  width: 340px;
+  height: 100%;
+  border-radius: 25px 0 0 25px;
+}
+
+.conteiner-form{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.conteiner-form{
+  margin: 25px;
+}
+.conteiner-form h2{
+  font-family: 'chiller';
+}
+
+.text{
+  margin: 10px 0 12px 0;
+  font-weight: 600;
+  color:#a65b2f;
+}
+
+.conteiner-form form input{
+  margin: 10px 0 5px 0;
+  width: 87%;
+  height: 33px;
+  border-radius: 10px;
+  border: none;
+  padding-left: 10px;
+}
+
+.form_login button{
+  margin: 15px 0 20px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  color:black;
+  background-color: #ebdcff;
+  border: 1px solid #cbcbcb;
+  cursor: pointer;
+}
+
+.text-sesion{
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.modal-close{
+  transform: translateY(-200%);
+}
+
+
+
+
+
+.modal-containerr {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+/*
+pointer-events: none;
+opacity: 0;  
+transition: opacity 0.3s ease;*/
+}
+
+.modall {
+width: 50%;
+height: 60%;
+background: #EBE2FC;
+text-align: center;
+border-radius: 25px;
+display: flex;
+flex-direction: row;
+position: relative;
+transition-duration: 1s;
+transform: translateY(0%);
+}
+.closee{
+position: absolute;
+top: 10px;
+right: 20px;
+display: inline-block;
+width: 25px;
+height: 25px;
+background: #c44a4a;
+color: #fff;
+line-height: 24px;
+cursor: pointer;
+border-radius: 50%;
+}
+
+.modal-imgg{
+width: 50%;
+}
+
+.modal-imgg img{
+width: 340px;
+height: 100%;
+border-radius: 25px 0 0 25px;
+}
+
+.conteiner-formm{
+width: 50%;
+display: flex;
+flex-direction: column;
+}
+
+.conteiner-formm{
+margin: 25px;
+}
+.conteiner-formm h2{
+font-family: 'chiller';
+}
+
+.textt{
+margin: 10px 0 12px 0;
+font-weight: 600;
+color:#a65b2f;
+}
+
+.conteiner-formm form input{
+margin: 10px 0 5px 0;
+width: 87%;
+height: 33px;
+border-radius: 10px;
+border: none;
+padding-left: 10px;
+}
+
+.form_loginn button{
+margin: 15px 0 40px 0;
+padding: 6px 10px;
+border-radius: 6px;
+border: none;
+color:black;
+background-color: #ebdcff;
+border: 1px solid #cbcbcb;
+cursor: pointer;
+}
+
+.text-sesionn{
+color: #000;
+text-decoration: none;
+font-weight: 700;
+}
+
+.modal-closee{
+transform: translateY(-200%);
+}
+
+
+
+
+
+
+.modal-containerrr {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+/*
+pointer-events: none;
+opacity: 0;  
+transition: opacity 0.3s ease;*/
+}
+
+.modalll {
+width: 50%;
+height: 60%;
+background: #EBE2FC;
+text-align: center;
+border-radius: 25px;
+display: flex;
+flex-direction: row;
+position: relative;
+transition-duration: 1s;
+transform: translateY(0%);
+}
+.cerrar{
+position: absolute;
+top: 10px;
+right: 20px;
+display: inline-block;
+width: 25px;
+height: 25px;
+background: #c44a4a;
+color: #fff;
+line-height: 24px;
+cursor: pointer;
+border-radius: 50%;
+}
+
+.modal-imggg{
+width: 50%;
+}
+
+.modal-imggg img{
+width: 340px;
+height: 100%;
+border-radius: 25px 0 0 25px;
+}
+
+.conteiner-formmm{
+width: 50%;
+display: flex;
+flex-direction: column;
+}
+
+.conteiner-formmm{
+margin: 25px;
+}
+.conteiner-formmm h2{
+font-family: 'chiller';
+}
+
+.conteiner-formmm ul button{
+  margin: 15% 35% 15% 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  color:black;
+  background-color: #ebdcff;
+  border: 1px solid #cbcbcb;
+  cursor: pointer;
+  word-wrap: break-word;
+  }
+
+  .conteiner-formmm ul button:hover{
+    color:rgb(255, 255, 255);
+    background-color: #8e639b;
+    border: 1px solid #4e2658;
+  }
+
+.texttt{
+margin: 10px 0 12px 0;
+font-weight: 600;
+color:#a65b2f;
+}
+
+.modal-closee{
+transform: translateY(-200%);
+}
+button:hover{
+  color:rgb(255, 255, 255);
+  background-color: #8e639b;
+  border: 1px solid #4e2658;
+}
+
+.container-post_form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f77e;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-post_form h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.container-post_form h4 {
+  font-size: 18px;
+  color: #666;
+}
+
+.container-post_form form {
+  margin-top: 20px;
+}
+
+.container-post_form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.container-post_form input[type="text"],
+.container-post_form input[type="file"],
+.container-post_form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 16px;
+}
+.container-post_form input[name="contenido_post"] {
+  width: 100%;
+  height: 200px;
+  max-width: 100%;
+  max-height: 300px;
+  resize: vertical;
+  overflow-y: auto;
+  padding: 5px;
+}
+.container-post_form select {
+  appearance: none;
+}
+
+.container-post_form button[type="submit"] {
+  background-color: #ea5cf7;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.container-post_form button[type="submit"]:hover {
+  background-color: #9500b3;
+}
