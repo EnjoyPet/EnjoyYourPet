@@ -1,5 +1,6 @@
 let mod = document.querySelectorAll('.header_b')[0];
 let Enseñame_button = document.getElementById("Enseñame-Button");
+let ToyMalito_Button = document.getElementById("ToyMalito-Button");
 
 // const log = document.querySelector('.ingresa');
 // const sign = document.querySelector('.register');
@@ -23,6 +24,10 @@ var lastScrollTop = window.pageYOffset;
 Enseñame_button.addEventListener('click',()=>{
    document.write('...')
    window.location.href = 'Ensename/'
+})
+ToyMalito_Button.addEventListener('click',()=>{
+   document.write('...')
+   window.location.href = '/Toy-Malito'
 })
 
 window.addEventListener('scroll',()=>{

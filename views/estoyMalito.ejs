@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="shortcut icon" href="/img/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/estilo.css">
+    <title>Veterinaria</title>
+    <style>
+        .placeholder-pagina-veterinaria{
+            margin: 0 auto;
+            padding: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        .placeholder-pagina-veterinaria h1{
+            color: rgb(226, 43, 128);
+        }
+        .placeholder-pagina-veterinaria h3{
+            color: rgb(43, 226, 186);
+        }
+    </style>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %>
+
+    <% if (login) { %>
+        <script>
+            const log = document.querySelector('.ingresa');
+            const sign = document.querySelector('.register');
+            const cuent = document.querySelector('.cuenta');
+            
+            log.style.visibility = "hidden";
+            sign.style.visibility = "hidden";
+            cuent.style.visibility = "visible";
+        </script>
+        <% } else {%>
+            <script>
+                log.style.visibility = "visible";
+                sign.style.visibility = "visible";
+                cuent.style.visibility = "hidden";
+            </script>
+        <% } %>
+    
+    <!-- <div id="adlateral1"></div>
+    <div id="adlateral2"></div> -->
+
+    <div class="main">
+        
+        <div class="placeholder-pagina-veterinaria">
+            <h1> ¡ Pronto te conectaremos a la veterinaria ! </h1>
+            <h3> en dias venideros la redireccion a la veterinaria virtual estara completa </h3>
+        </div>
+    </div>
+<%- include("./partials/footer.ejs") %>
+    <script src="/js/slider.js"></script>
+    <script src="/public/js/header.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <% if(typeof alert != "undefined"){%>
+        <script>
+            Swal.fire({
+                title:'<%= alertTitle %>',
+                text:'<%= alertMessage %>',
+                icon:'<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location.href='/<%= ruta %>'
+            })
+        </script>
+        <% } %>
+</body>
+</html>     

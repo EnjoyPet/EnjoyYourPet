@@ -268,7 +268,7 @@ app.post("/Opciones/eliminarCuenta",async(req,res)=>{
   }
 })
 
-app.get("/Ensename/",(req,res)=>{
+app.get("*/Ensename/",(req,res)=>{
     conection.conector.query('SELECT * FROM post ORDER BY id_post DESC',async(error,result)=>{
     if (error) throw error;
     else{
@@ -279,6 +279,14 @@ app.get("/Ensename/",(req,res)=>{
         posts: result
       })
     }
+  })
+})
+
+app.get("*/Toy-Malito/",(req,res)=>{
+  res.render("estoyMalito",{
+    login:(req.session.loggedin),
+    id_usuario: req.session.id_usuario,
+    usuario: req.session.nombre
   })
 })
 
