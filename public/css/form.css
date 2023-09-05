@@ -346,6 +346,7 @@ button:hover{
 
 .container-post_form input[type="text"],
 .container-post_form input[type="file"],
+.container-post_form textarea,
 .container-post_form select {
   width: 100%;
   padding: 10px;
@@ -354,7 +355,7 @@ button:hover{
   border-radius: 20px;
   font-size: 16px;
 }
-.container-post_form input[name="contenido_post"] {
+.container-post_form textarea[name="contenido_post"] {
   width: 100%;
   height: 200px;
   max-width: 100%;
@@ -362,6 +363,7 @@ button:hover{
   resize: vertical;
   overflow-y: auto;
   padding: 5px;
+  word-wrap: break-word;
 }
 .container-post_form select {
   appearance: none;
