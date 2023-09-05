@@ -778,6 +778,9 @@ a{
 
 #PostsDeUsuarios .post-description {
     color: #e74c3c; /* Rojo pastel */
+    max-width: 50%;
+    margin: 0 auto;
+    word-wrap: break-word;
 }
 
 #PostsDeUsuarios .imagen-container img {
