@@ -3,11 +3,6 @@ let abrirr = document.querySelectorAll('.ingresa')[0];
 let modall = document.querySelectorAll('.modall')[0];
 let modalcc = document.querySelectorAll('.modal-containerr')[0];
 
- const ing_correo = document.querySelector('#ing_correo');
- const ing_contrasenia = document.querySelector('#ing_contrasenia');
-
-let BtnEnviar = document.querySelector('.Ingresar');
-
 abrirr.addEventListener('click', (e)=>{
   e.preventDefault();
   modalcc.style.opacity = "1";
@@ -36,9 +31,3 @@ window.addEventListener('click', (e)=>{
   },850)
   }
   }) 
-
-BtnEnviar.addEventListener('click',()=>{
-  let text = "/ingresar/"+ing_correo.value+"/"+ing_contrasenia.value
-  document.write('Evaluando...')
-  window.location.href = text
-})

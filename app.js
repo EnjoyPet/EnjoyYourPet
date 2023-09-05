@@ -61,11 +61,11 @@ app.get("/", (req, res) => {
 app.get('/register', (req, res) => {
   res.render("register")
 })
-app.get('/registrar/:nombre/:correo/:contrasenia/:numero',async(req, res)=>{
-  const nombre = req.params.nombre
-  const correo = req.params.correo
-  const numero = req.params.numero
-  const contrasenia = req.params.contrasenia
+app.post('*/registrar-Usuario',async(req, res)=>{
+  const nombre = req.body.nombre
+  const correo = req.body.correo
+  const numero = req.body.numero
+  const contrasenia = req.body.contrasenia
   let contrhaash = await bcryptjs.hash(contrasenia, 8)
   let respuesta = conection.comprobarcorreo(correo,(result)=>{
     if(result==null){
@@ -100,9 +100,9 @@ app.get('/registrar/:nombre/:correo/:contrasenia/:numero',async(req, res)=>{
   
 })
 
-app.get('/ingresar/:correo/:contrasenia',async (req, res)=>{
-  const ing_correo = req.params.correo
-  const ing_contrasenia = req.params.contrasenia
+app.post('*/inciar-sesion',async (req, res)=>{
+  const ing_correo = req.body.correo
+  const ing_contrasenia = req.body.contrasenia
   let contrhaash = await bcryptjs.hash(ing_contrasenia,8)
   conection.conector.query('SELECT * FROM usuario WHERE correo = ?',[ing_correo],async(error,result)=>{
     if(error)throw error

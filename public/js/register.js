@@ -3,13 +3,6 @@ let abrir = document.querySelectorAll('.register')[0];
 let modal = document.querySelectorAll('.modal')[0];
 let modalc = document.querySelectorAll('.modal-container')[0];
 
-let nombre = document.querySelector('#nombre');
-let correo = document.querySelector('#correo');
-let contrasenia = document.querySelector('#contrasenia');
-let numero = document.querySelector('#numero');
-
-let btnregistrar = document.querySelector('#submit-btn');
-
 
 
 abrir.addEventListener('click', function(e){
@@ -40,10 +33,3 @@ window.addEventListener('click', function(e){
   },850)
   }
   }) 
-
-  btnregistrar.addEventListener('click',()=>{
-    let text = "/registrar/"+nombre.value+"/"+correo.value+"/"+contrasenia.value+"/"+numero.value
-    document.write(text)
-    window.location.href = text
-  })
-  
