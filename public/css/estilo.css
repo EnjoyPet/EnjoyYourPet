@@ -875,6 +875,7 @@ a{
 
     #PostsDeUsuarios .post-description {
         font-size: 14px;
+        max-width: 80%;
     }
 }
 
@@ -891,6 +892,9 @@ a{
     }
 }
 @media screen and (max-width: 530px) {
+    .nav_ul .cuenta{
+        transform: translateX(-50px);
+    }
     .logo01{
         visibility:hidden;
     }
@@ -914,9 +918,6 @@ a{
 }
 
 @media screen and (max-width: 350px) {
-    .nav_ul .cuenta{
-        transform: translateX(-40px);
-    }
     .search_bar{
         margin-left: -100px;
         width: 100%;
