@@ -288,8 +288,8 @@ a{
 }
 
 .compras{
-    width: 160px;
-    height: 130px;
+    width: fit-content;
+    height: fit-content;
     background: #d8bef9;
     border-radius: 12px;
     /*margin-top: 5px;*/
@@ -560,46 +560,47 @@ a{
     font-size: 15px;
     margin-top: 40px;
 }
-.ofertas{
-    align-items: auto;    
-} 
-
-
-.ofertas_div{
-    display: inline-block;
-    width: 19%;
-    border: 1px solid #000000;
-    /* align-items: auto; */
-}
-
-.ofertas_div section{
-   text-align: center; 
-}
-
-
-.ofertas_div img{
-    width: 60%;
-    height: 230px;
-
-    /* align-items: auto; */
-
-}
-
-
-.ofertas_div h2{
-    position: relative;
-    text-align: center;
-
- }
-.ofertas_div h4{
-   color: darkgreen;
-   position: relative;
-   text-align: center;
-}
+/* Estilo para el contenedor de ofertas */
+.ofertas {
+    width: 80vw;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribuir el espacio entre los elementos */
+    gap: 20px; /* Espacio entre las ofertas */
+  }
+  
+  /* Estilo para cada div de oferta */
+  .ofertas_div {
+    flex-basis: calc(20% - 20px); /* El 20% es para mostrar hasta 5 elementos en una fila */
+    margin-bottom: 20px; /* Espacio entre las filas */
+  }
+  
+  /* Estilo para la imagen */
+  .ofertas_div img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Estilo para el precio */
+  .ofertas_div h2 {
+    font-size: 18px;
+    color: #333;
+    margin: 5px 0;
+  }
+  
+  /* Estilo para el descuento */
+  .ofertas_div h4 {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+  }
 .ahorra{
-    margin: 20px 0 40px 60px;
- 
-
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    justify-self: center;
+    font-size: x-large;
 }
 
 .body-opciones{
