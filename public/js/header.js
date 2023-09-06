@@ -1,6 +1,7 @@
 let mod = document.querySelectorAll('.header_b')[0];
 let Enseñame_button = document.getElementById("Enseñame-Button");
 let ToyMalito_Button = document.getElementById("ToyMalito-Button");
+let Petfriendly_Button = document.getElementById("Petfriendly-Button");
 
 // const log = document.querySelector('.ingresa');
 // const sign = document.querySelector('.register');
@@ -28,6 +29,11 @@ Enseñame_button.addEventListener('click',()=>{
 ToyMalito_Button.addEventListener('click',()=>{
    document.write('...')
    window.location.href = '/Toy-Malito'
+})
+
+Petfriendly_Button.addEventListener('click',()=>{
+   document.write('...')
+   window.location.href = '/Petfriendly'
 })
 
 window.addEventListener('scroll',()=>{

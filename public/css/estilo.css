@@ -864,6 +864,14 @@ a{
     }
 }
 
+#map{
+    transform: translateY(200px);
+    width: 80vw;
+    height: 500px;
+    margin: 0 auto;
+    border-radius: 45px;
+}
+
 @media (max-width: 480px) {
     .post-item {
         padding: 5px;

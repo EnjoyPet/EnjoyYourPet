@@ -286,6 +286,16 @@ app.get("*/Toy-Malito/",(req,res)=>{
   res.render("estoyMalito",{
     login:(req.session.loggedin),
     id_usuario: req.session.id_usuario,
+    usuario: req.session.nombre,
+    H1:"¡ Pronto te conectaremos a la veterinaria !",
+    H3:"en dias venideros la redireccion a la veterinaria virtual estara completa"
+  })
+})
+
+app.get("*/Petfriendly/",(req,res)=>{
+  res.render("petfriendly",{
+    login:(req.session.loggedin),
+    id_usuario: req.session.id_usuario,
     usuario: req.session.nombre
   })
 })

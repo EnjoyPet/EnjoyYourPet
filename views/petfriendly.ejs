@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/estilo.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="shortcut icon" href="/img/ico.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/css/form.css">
+        <title>petfriendly</title>
+        <!-- Agrega la API key de Google Maps y la librería Places aquí -->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA49umZWhP2AiFaREAIRzLb_bH5EF79vqo&libraries=places"></script>
+    </head>
+    <body>
+        <%- include("./partials/header.ejs") %>
+
+        <% if (login) { %>
+        <script>
+            const log = document.querySelector('.ingresa');
+            const sign = document.querySelector('.register');
+            const cuent = document.querySelector('.cuenta');
+            
+            log.style.visibility = "hidden";
+            sign.style.visibility = "hidden";
+            cuent.style.visibility = "visible";
+        </script>
+        <% } else {%>
+        <script>
+                log.style.visibility = "visible";
+                sign.style.visibility = "visible";
+                cuent.style.visibility = "hidden";
+            </script>
+        <% } %>
+        <div class="main">
+            <div id="map"></div>
+        
+            <script>
+        // Función que se ejecutará cuando se cargue la API de Google Maps
+        function initMap(latitude, longitude) {
+            var myLatLng = { lat: latitude, lng: longitude };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                zoom: 15
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Mi Posición'
+            });
+
+            // Inicializa el servicio de lugares
+            var placesService = new google.maps.places.PlacesService(map);
+
+            // Define el tipo de lugar que deseas buscar (en este caso, lugares relacionados con mascotas)
+            var request = {
+                location: myLatLng,
+                radius: 1000, // Radio en metros para buscar lugares
+                type: ['pet_store'] // Puedes cambiar esto a otros tipos de lugares relacionados con mascotas
+            };
+
+            // Realiza la búsqueda de lugares
+            placesService.nearbySearch(request, function (results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        createMarker(results[i]);
+                    }
+                }
+            });
+
+            // Crea marcadores para los lugares encontrados
+            function createMarker(place) {
+                var placeLatLng = place.geometry.location;
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: placeLatLng,
+                    title: place.name
+                });
+            }
+        }
+
+        // Función para obtener las coordenadas del usuario
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    initMap(latitude, longitude); // Llama a initMap con las coordenadas obtenidas
+                });
+            } else {
+                alert("Tu navegador no admite la geolocalización.");
+            }
+        }
+
+        // Llama a getLocation para obtener las coordenadas al cargar la página
+        getLocation();
+            </script>
+        </div>
+        <%- include("./partials/footer.ejs") %>
+        <script src="/public/js/header.js"></script>
+    </body>
+</html>
