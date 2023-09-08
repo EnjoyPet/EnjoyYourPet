@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="public/css/form.css">
+  <script src="/public/js/register_logic.js"></script>
   <title>Document</title>
 </head>
 <body>
@@ -17,12 +18,17 @@
     <div class="conteiner-form">
         <h2>EnjoyourPet</h2>
         <p class="text">¡Disfruta junto a tu mascota!</p>
-      <form class="form_login" action="registrar-Usuario" method="post">  
+      <form class="form_login" id="registrar-Usuario-form" action="registrar-Usuario" method="post">  
             <input id="nombre" type="text" name="nombre" placeholder="Nombre" autocomplete="off" required>
-            <input id="correo" type="email" name="correo" placeholder="Correo" autocomplete="off" required>          
+            <input id="_correo" type="email" name="correo" placeholder="Correo" autocomplete="off" required>          
             <input id="contrasenia" type="password" name="contrasenia" placeholder="Contraseña" autocomplete="off" required>                
             <input id="numero" type="tel" name="numero" placeholder="Número de celular" autocomplete="off" required>
-            <button id="submit-btn" type="submit" name="enviar">Enviar</button>
+            <button id="submit-btn registrar-submit-btn" type="submit" name="enviar"onclick="cambiarform()">Enviar</button>
+          </form>
+      <form class="form_login" id="validar-Usuario-form" action="verificar-mail" method="post" style="display: none;">  
+        <input id="__correo" type="email" name="correo" placeholder="Correo" autocomplete="off" required style="display: none;">     
+        <input id="codigo" type="text" name="codigo" placeholder="Codigo" maxlength="4" autocomplete="off" required>
+        <button id="submit-btn" type="submit" name="enviar">Verificar</button>
       </form>
       <p>¿Ya tienes una cuenta? <a href="" class="register text-sesion">Iniciar Sesión</a></p>
     </div>

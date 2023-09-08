@@ -25,7 +25,6 @@ cerrarrr.addEventListener('click', ()=>{
 });
 
 window.addEventListener('click', (e)=>{
-  console.log(e.target)
   if(e.target == modallcc){
     modalll.classList.toggle('modal-closee');
   

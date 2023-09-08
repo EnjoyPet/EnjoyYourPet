@@ -3,10 +3,16 @@ const app = express();
 const path = require("path");
 const multer = require('multer');
 const sharp = require('sharp');
+const validator = require('validator');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+
 
 var conection = require("./mysql.js")
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
+const verificationCodes = new Map();
+
 app.use(express.static("public"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -43,6 +49,14 @@ app.listen(port, () => {
   console.log("Levantando el Servidor 8080");
 });
 
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.MAILER_MAIL,
+    pass: process.env.MAILER_PASS
+  }
+});
+
 // rutas
 app.get("/", (req, res) => {
   if(req.session.loggedin){
@@ -61,20 +75,56 @@ app.get("/", (req, res) => {
 app.get('/register', (req, res) => {
   res.render("register")
 })
+
 app.post('*/registrar-Usuario',async(req, res)=>{
   const nombre = req.body.nombre
   const correo = req.body.correo
   const numero = req.body.numero
   const contrasenia = req.body.contrasenia
+  if (!validator.isEmail(correo)) {
+    res.render("index",{
+      login:false,
+      alert:true,
+      alertTitle: "ERROR",
+      alertMessage: "Este correo es invalido",
+      alertIcon:  "error",
+      showConfirmButton:true,
+      timer:false,
+      ruta:''})
+  }
   let contrhaash = await bcryptjs.hash(contrasenia, 8)
   let respuesta = conection.comprobarcorreo(correo,(result)=>{
     if(result==null){
-      conection.registrar(nombre,correo,contrhaash,numero)
-      req.session.exist=true;
-    }else {
-      req.session.exist=false;
+    // Generar un código de verificación único
+      const verificationCode = crypto.randomBytes(2).toString('hex'); // 4 dígitos, por ejemplo
+      
+      // Almacenar el código de verificación junto con el correo electrónico
+      verificationCodes.set(correo, {
+        Codigo: verificationCode,
+        Nombre: nombre,
+        Contrasenia: contrhaash,
+        Numero: numero,
+      });
+
+      // Enviar un correo electrónico con el código de verificación
+      const mailOptions = {
+        from: process.env.MAILER_MAIL,
+        to: correo,
+        subject: 'Código de verificación',
+        text: `Tu código de verificación es: ${verificationCode}.`,
+      };
+      
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error(error);
+          // return res.status(500).json({ error: 'Error al enviar el correo de verificación' });
+        } else {
+          console.log('Correo de verificación enviado: ' + info.response);
+          // res.status(201).json({ message: 'Por favor, verifica tu correo electrónico' });
+        }
+      });
     }
-    if(!req.session.exist){
+    else{
       res.render("index",{
         login:false,
         alert:true,
@@ -84,8 +134,37 @@ app.post('*/registrar-Usuario',async(req, res)=>{
         showConfirmButton:true,
         timer:false,
         ruta:''})
-    }else{
-      res.render("index",{
+    }
+    return result
+  })
+})
+
+app.post('/verificar-mail', async(req, res) => {
+  const correo = req.body.correo
+  const codigo = req.body.codigo
+
+  // Verificar si el correo y el código coinciden
+  const DatosdeUsuario = verificationCodes.get(correo);
+
+  if (!DatosdeUsuario || DatosdeUsuario.Codigo !== codigo) {
+    res.render("index",{
+      login:false,
+      alert:true,
+      alertTitle: "ERROR",
+      alertMessage: "Este codigo incorrecto",
+      alertIcon:  "error",
+      showConfirmButton:true,
+      timer:false,
+      ruta:''})
+  }
+
+  // Si coincide, marcar la cuenta como verificada (simulación)
+  conection.registrar(DatosdeUsuario.Nombre,correo,DatosdeUsuario.Contrasenia,DatosdeUsuario.Numero)
+
+  // Eliminar el código de verificación, ya que se ha utilizado
+  verificationCodes.delete(correo);
+
+  res.render("index",{
         login:false,
         alert:true,
         alertTitle: "EXITO",
@@ -94,11 +173,7 @@ app.post('*/registrar-Usuario',async(req, res)=>{
         showConfirmButton:false,
         timer:800,
         ruta:''})
-    }
-    return result
-  })
-  
-})
+});
 
 app.post('*/inciar-sesion',async (req, res)=>{
   const ing_correo = req.body.correo
