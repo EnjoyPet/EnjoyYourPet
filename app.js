@@ -6,15 +6,13 @@ const sharp = require('sharp');
 const validator = require('validator');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-
-
-var conection = require("./mysql.js")
+const conection = require("./mysql.js");
 
 const port = process.env.PORT;
 const verificationCodes = new Map();
 
 app.use(express.static("public"));
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const storage = multer.memoryStorage();
@@ -24,15 +22,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const dotenv = require("dotenv");
-dotenv.config({path:  './env/.env'});
+dotenv.config({ path: './env/.env' });
 
 app.use('/resources', express.static('public'));
 app.use('/resources', express.static(__dirname + '/public'));
 
 app.set('views', path.join(__dirname, 'views'))
-
 app.set("view engine", "ejs")
-
 
 const bcryptjs = require("bcryptjs");
 
@@ -40,9 +36,9 @@ const session = require("express-session");
 const { error } = require("console");
 
 app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized:true
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
 }));
 
 app.listen(port, () => {
@@ -59,45 +55,46 @@ const transporter = nodemailer.createTransport({
 
 // rutas
 app.get("/", (req, res) => {
-  if(req.session.loggedin){
-    res.render("index",{
+  if (req.session.loggedin) {
+    res.render("index", {
       usuario: req.session.nombre,
       login: true
     })
-  }else{
-    res.render("index",{
+  } else {
+    res.render("index", {
       usuario: "error DE Loggin",
       login: false
-      })
-    }
-  });
+    })
+  }
+});
 
 app.get('/register', (req, res) => {
   res.render("register")
 })
 
-app.post('*/registrar-Usuario',async(req, res)=>{
-  const nombre = req.body.nombre
-  const correo = req.body.correo
-  const numero = req.body.numero
-  const contrasenia = req.body.contrasenia
+app.post('*/registrar-Usuario', async (req, res) => {
+  const nombre = req.body.nombre;
+  const correo = req.body.correo;
+  const numero = req.body.numero;
+  const contrasenia = req.body.contrasenia;
   if (!validator.isEmail(correo)) {
-    res.render("index",{
-      login:false,
-      alert:true,
+    res.render("index", {
+      login: false,
+      alert: true,
       alertTitle: "ERROR",
-      alertMessage: "Este correo es invalido",
-      alertIcon:  "error",
-      showConfirmButton:true,
-      timer:false,
-      ruta:''})
+      alertMessage: "Este correo es inválido",
+      alertIcon: "error",
+      showConfirmButton: true,
+      timer: false,
+      ruta: ''
+    })
   }
   let contrhaash = await bcryptjs.hash(contrasenia, 8)
-  let respuesta = conection.comprobarcorreo(correo,(result)=>{
-    if(result==null){
-    // Generar un código de verificación único
+  let respuesta = conection.comprobarcorreo(correo, (result) => {
+    if (result == null) {
+      // Generar un código de verificación único
       const verificationCode = crypto.randomBytes(2).toString('hex'); // 4 dígitos, por ejemplo
-      
+
       // Almacenar el código de verificación junto con el correo electrónico
       verificationCodes.set(correo, {
         Codigo: verificationCode,
@@ -113,242 +110,252 @@ app.post('*/registrar-Usuario',async(req, res)=>{
         subject: 'Código de verificación',
         text: `Tu código de verificación es: ${verificationCode}.`,
       };
-      
+
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.error(error);
-          // return res.status(500).json({ error: 'Error al enviar el correo de verificación' });
         } else {
           console.log('Correo de verificación enviado: ' + info.response);
-          // res.status(201).json({ message: 'Por favor, verifica tu correo electrónico' });
         }
       });
     }
-    else{
-      res.render("index",{
-        login:false,
-        alert:true,
+    else {
+      res.render("index", {
+        login: false,
+        alert: true,
         alertTitle: "ERROR",
-        alertMessage: "Este correo ya esta registrado",
-        alertIcon:  "error",
-        showConfirmButton:true,
-        timer:false,
-        ruta:''})
+        alertMessage: "Este correo ya está registrado",
+        alertIcon: "error",
+        showConfirmButton: true,
+        timer: false,
+        ruta: ''
+      })
     }
     return result
   })
 })
 
-app.post('/verificar-mail', async(req, res) => {
-  const correo = req.body.correo
-  const codigo = req.body.codigo
+app.post('/verificar-mail', async (req, res) => {
+  const correo = req.body.correo;
+  const codigo = req.body.codigo;
 
   // Verificar si el correo y el código coinciden
   const DatosdeUsuario = verificationCodes.get(correo);
 
   if (!DatosdeUsuario || DatosdeUsuario.Codigo !== codigo) {
-    res.render("index",{
-      login:false,
-      alert:true,
+    res.render("index", {
+      login: false,
+      alert: true,
       alertTitle: "ERROR",
-      alertMessage: "Este codigo incorrecto",
-      alertIcon:  "error",
-      showConfirmButton:true,
-      timer:false,
-      ruta:''})
+      alertMessage: "Este código es incorrecto",
+      alertIcon: "error",
+      showConfirmButton: true,
+      timer: false,
+      ruta: ''
+    })
   }
 
-  // Si coincide, marcar la cuenta como verificada (simulación)
-  conection.registrar(DatosdeUsuario.Nombre,correo,DatosdeUsuario.Contrasenia,DatosdeUsuario.Numero)
+  conection.registrar(DatosdeUsuario.Nombre, correo, DatosdeUsuario.Contrasenia, DatosdeUsuario.Numero);
 
   // Eliminar el código de verificación, ya que se ha utilizado
   verificationCodes.delete(correo);
 
-  res.render("index",{
-        login:false,
-        alert:true,
-        alertTitle: "EXITO",
-        alertMessage: "Usuario creado correctamente",
-        alertIcon:  "success",
-        showConfirmButton:false,
-        timer:800,
-        ruta:''})
+  res.render("index", {
+    login: false,
+    alert: true,
+    alertTitle: "EXITO",
+    alertMessage: "Usuario creado correctamente",
+    alertIcon: "success",
+    showConfirmButton: false,
+    timer: 800,
+    ruta: ''
+  })
 });
 
-app.post('*/inciar-sesion',async (req, res)=>{
-  const ing_correo = req.body.correo
-  const ing_contrasenia = req.body.contrasenia
-  let contrhaash = await bcryptjs.hash(ing_contrasenia,8)
-  conection.conector.query('SELECT * FROM usuario WHERE correo = ?',[ing_correo],async(error,result)=>{
-    if(error)throw error
-    else{
-      if(result.length == 0 || !(await bcryptjs.compare(ing_contrasenia, result[0].contrasenia))){
-        res.render("index",{
-          login:false,
-          alert:true,
+app.post('*/inciar-sesion', async (req, res) => {
+  const ing_correo = req.body.correo;
+  const ing_contrasenia = req.body.contrasenia;
+  let contrhaash = await bcryptjs.hash(ing_contrasenia, 8)
+  conection.conector.query('SELECT * FROM usuario WHERE correo = ?', [ing_correo], async (error, result) => {
+    if (error) throw error
+    else {
+      if (result.length == 0 || !(await bcryptjs.compare(ing_contrasenia, result[0].contrasenia))) {
+        res.render("index", {
+          login: false,
+          alert: true,
           alertTitle: "ERROR",
-          alertMessage: "Correo y/o Contraceña incorrectos",
-          alertIcon:  "error",
-          showConfirmButton:true,
-          timer:false,
-          ruta:''})
-      }else{
+          alertMessage: "Correo y/o Contraseña incorrectos",
+          alertIcon: "error",
+          showConfirmButton: true,
+          timer: false,
+          ruta: ''
+        })
+      } else {
         req.session.loggedin = true
         req.session.nombre = result[0].nombre;
         req.session.id_usuario = result[0].id_usuario;
         req.session.Contrasena = result[0].contrasenia;
-        res.render("index",{
+        res.render("index", {
           usuario: req.session.nombre,
-          login:true,
-          alert:true,
+          login: true,
+          alert: true,
           alertTitle: "EXITO",
-          alertMessage: "sesion iniciada correctamente",
-          alertIcon:  "success",
-          showConfirmButton:false,
-          timer:800,
-          ruta:''})
+          alertMessage: "Sesión iniciada correctamente",
+          alertIcon: "success",
+          showConfirmButton: false,
+          timer: 800,
+          ruta: ''
+        })
       }
     }
   })
 })
 
-app.get("*/Serr/",(req,res)=>{
-  req.session.destroy(()=>{
-    res.render("index",{
-      login:false,
-      alert:true,
+app.get("*/Serr/", (req, res) => {
+  req.session.destroy(() => {
+    res.render("index", {
+      login: false,
+      alert: true,
       alertTitle: "EXITO",
-      alertMessage: "sesion cerrada correctamente",
-      alertIcon:  "success",
-      showConfirmButton:false,
-      timer:800,
-      ruta:''})
+      alertMessage: "Sesión cerrada correctamente",
+      alertIcon: "success",
+      showConfirmButton: false,
+      timer: 800,
+      ruta: ''
+    })
   })
 })
 
-app.get("/Opciones/",(req,res)=>{
-  res.render("opciones",{
-    login:true,
+app.get("/Opciones/", (req, res) => {
+  res.render("opciones", {
+    login: true,
     usuario: req.session.nombre
   })
 })
 
-app.post("/Opciones/ActualizarCuenta",(req,res)=>{
+app.post("/Opciones/ActualizarCuenta", (req, res) => {
   const nomb = req.body.nombre;
   const tipid = req.body.tipid;
   const id = req.body.id;
   const tel = req.body.tel;
   const gen = req.body.gen;
 
-  conection.actualizarUsuario(nomb,tipid,id,tel,gen,req.session.id_usuario);
-  res.render("opciones",{
-    login:true,
+  conection.actualizarUsuario(nomb, tipid, id, tel, gen, req.session.id_usuario);
+  res.render("opciones", {
+    login: true,
     usuario: req.session.nombre,
-    alert:true,
+    alert: true,
     alertTitle: "EXITO",
-    alertMessage: "datos actualizados correctamente",
-    alertIcon:  "success",
-    showConfirmButton:false,
-    timer:800,
-    ruta:''})
+    alertMessage: "Datos actualizados correctamente",
+    alertIcon: "success",
+    showConfirmButton: false,
+    timer: 800,
+    ruta: ''
+  })
 })
 
-app.post("/Opciones/actualizarSeguridad",async(req,res)=>{
-  
+app.post("/Opciones/actualizarSeguridad", async (req, res) => {
+
   const corr = req.body.correo;
   const contractual = req.body.contractual;
   const contranueva = req.body.contr;
   const contranueva2 = req.body.contr2;
 
-  let contr = await bcryptjs.hash(contranueva,8)
-  if(contranueva != contranueva2){
-    res.render("opciones",{
-      login:true,
+  let contr = await bcryptjs.hash(contranueva, 8)
+  if (contranueva != contranueva2) {
+    res.render("opciones", {
+      login: true,
       usuario: req.session.nombre,
-      alert:true,
+      alert: true,
       alertTitle: "ERROR",
-      alertMessage: "las contraceñas no coinciden",
-      alertIcon:  "error",
-      showConfirmButton:true,
-      timer:false,
-      ruta:''})
-  }else{
-    if(!(await bcryptjs.compare(contractual, req.session.Contrasena))){
-      res.render("opciones",{
-        login:true,
+      alertMessage: "Las contraseñas no coinciden",
+      alertIcon: "error",
+      showConfirmButton: true,
+      timer: false,
+      ruta: ''
+    })
+  } else {
+    if (!(await bcryptjs.compare(contractual, req.session.Contrasena))) {
+      res.render("opciones", {
+        login: true,
         usuario: req.session.nombre,
-        alert:true,
+        alert: true,
         alertTitle: "ERROR",
-        alertMessage: "Contraceña actual incorrecta",
-        alertIcon:  "error",
-        showConfirmButton:true,
-        timer:false,
-        ruta:''})
-    }else{
-      conection.actualizarSeguridad(corr,contr,req.session.id_usuario);
-      res.render("opciones",{
-        login:true,
+        alertMessage: "Contraseña actual incorrecta",
+        alertIcon: "error",
+        showConfirmButton: true,
+        timer: false,
+        ruta: ''
+      })
+    } else {
+      conection.actualizarSeguridad(corr, contr, req.session.id_usuario);
+      res.render("opciones", {
+        login: true,
         usuario: req.session.nombre,
-        alert:true,
+        alert: true,
         alertTitle: "EXITO",
-        alertMessage: "datos actualizados correctamente",
-        alertIcon:  "success",
-        showConfirmButton:false,
-        timer:800,
-        ruta:''})
-    }
-  }
-})
-
-app.post("/Opciones/eliminarCuenta",async(req,res)=>{
-  const co1 = req.body.contra1;
-  const co2 = req.body.contra2;
-  if(co1 == co2){
-    if(!(await bcryptjs.compare(co1, req.session.Contrasena))){
-      res.render("opciones",{
-        login:true,
-        usuario: req.session.nombre,
-        alert:true,
-        alertTitle: "ERROR",
-        alertMessage: "Contraceña incorrecta",
-        alertIcon:  "error",
-        showConfirmButton:true,
-        timer:false,
-        ruta:''})
-    }else{
-      conection.eliminarCuenta(req.session.id_usuario);
-      req.session.destroy(()=>{
-        res.render("index",{
-          login:false,
-          alert:true,
-          alertTitle: "EXITO",
-          alertMessage: "cuenta eliminada correctamente",
-          alertIcon:  "success",
-          showConfirmButton:false,
-          timer:800,
-          ruta:''})
+        alertMessage: "Datos actualizados correctamente",
+        alertIcon: "success",
+        showConfirmButton: false,
+        timer: 800,
+        ruta: ''
       })
     }
-  }else{
-    res.render("opciones",{
-      login:true,
-      usuario: req.session.nombre,
-      alert:true,
-      alertTitle: "ERROR",
-      alertMessage: "las contraceñas no coinciden",
-      alertIcon:  "error",
-      showConfirmButton:true,
-      timer:false,
-      ruta:''})
   }
 })
 
-app.get("*/Ensename/",(req,res)=>{
-    conection.conector.query('SELECT * FROM post ORDER BY id_post DESC',async(error,result)=>{
+app.post("/Opciones/eliminarCuenta", async (req, res) => {
+  const co1 = req.body.contra1;
+  const co2 = req.body.contra2;
+  if (co1 == co2) {
+    if (!(await bcryptjs.compare(co1, req.session.Contrasena))) {
+      res.render("opciones", {
+        login: true,
+        usuario: req.session.nombre,
+        alert: true,
+        alertTitle: "ERROR",
+        alertMessage: "Contraseña incorrecta",
+        alertIcon: "error",
+        showConfirmButton: true,
+        timer: false,
+        ruta: ''
+      })
+    } else {
+      conection.eliminarCuenta(req.session.id_usuario);
+      req.session.destroy(() => {
+        res.render("index", {
+          login: false,
+          alert: true,
+          alertTitle: "EXITO",
+          alertMessage: "Cuenta eliminada correctamente",
+          alertIcon: "success",
+          showConfirmButton: false,
+          timer: 800,
+          ruta: ''
+        })
+      })
+    }
+  } else {
+    res.render("opciones", {
+      login: true,
+      usuario: req.session.nombre,
+      alert: true,
+      alertTitle: "ERROR",
+      alertMessage: "Las contraseñas no coinciden",
+      alertIcon: "error",
+      showConfirmButton: true,
+      timer: false,
+      ruta: ''
+    })
+  }
+})
+
+app.get("*/Ensename/", (req, res) => {
+  conection.conector.query('SELECT * FROM post ORDER BY id_post DESC', async (error, result) => {
     if (error) throw error;
-    else{
-      res.render("Ensename",{
-        login:(req.session.loggedin),
+    else {
+      res.render("Ensename", {
+        login: (req.session.loggedin),
         id_usuario: req.session.id_usuario,
         usuario: req.session.nombre,
         posts: result
@@ -357,19 +364,19 @@ app.get("*/Ensename/",(req,res)=>{
   })
 })
 
-app.get("*/Toy-Malito/",(req,res)=>{
-  res.render("estoyMalito",{
-    login:(req.session.loggedin),
+app.get("*/Toy-Malito/", (req, res) => {
+  res.render("estoyMalito", {
+    login: (req.session.loggedin),
     id_usuario: req.session.id_usuario,
     usuario: req.session.nombre,
-    H1:"¡ Pronto te conectaremos a la veterinaria !",
-    H3:"en dias venideros la redireccion a la veterinaria virtual estara completa"
+    H1: "¡ Pronto te conectaremos a la veterinaria !",
+    H3: "En días venideros la redirección a la veterinaria virtual estará completa"
   })
 })
 
-app.get("*/Petfriendly/",(req,res)=>{
-  res.render("petfriendly",{
-    login:(req.session.loggedin),
+app.get("*/Petfriendly/", (req, res) => {
+  res.render("petfriendly", {
+    login: (req.session.loggedin),
     id_usuario: req.session.id_usuario,
     usuario: req.session.nombre
   })
@@ -423,8 +430,6 @@ app.post('/Ensename/HacerUnPost', upload.single('imagen_post'), (req, res) => {
     });
   }
 });
-
-
 
 // Ruta para aumentar los "Me Gusta" en la base de datos
 app.put('/punt/meGusta/:id', (req, res) => {
