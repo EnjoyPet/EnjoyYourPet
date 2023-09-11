@@ -408,6 +408,8 @@ a{
 }
 
 .main{
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
@@ -572,14 +574,25 @@ a{
   
   /* Estilo para cada div de oferta */
   .ofertas_div {
+    cursor: pointer;
+    position: relative;
+    border: 3px double #000000; /* Establecer el estilo del borde y el color */
+    border-radius: 10px; /* Radio de borde para suavizar las esquinas */
+    background-color: #ffffff; /* Color de fondo con opacidad */
     flex-basis: calc(20% - 20px); /* El 20% es para mostrar hasta 5 elementos en una fila */
+    margin-right: 20px; /* Espacio entre las ofertas (en lugar de margin-bottom para espaciado horizontal) */
     margin-bottom: 20px; /* Espacio entre las filas */
+    padding: 10px; /* Espaciado interno para el contenido del div */
+    box-sizing: border-box; /* Incluir el padding en el tamaño total del div */
   }
   
   /* Estilo para la imagen */
   .ofertas_div img {
+    margin: 0 auto;
     max-width: 100%;
+    width: auto;
     height: auto;
+    object-fit: contain; /* Esto ajustará la imagen sin recortarla */
   }
   
   /* Estilo para el precio */
@@ -595,6 +608,14 @@ a{
     color: #777;
     margin: 5px 0;
   }
+  .ofertas_div #precio_producto {
+    font-size: 14px;
+  color: #777;
+  position: absolute; /* Establece la posición absoluta */
+  bottom: 0; /* Coloca el elemento en la parte inferior */
+  margin: 5px 0;
+  }
+  
 .ahorra{
     width: fit-content;
     margin: 0 auto;
@@ -845,6 +866,158 @@ a{
 #PostsDeUsuarios .meGusta-Button:hover,
 #PostsDeUsuarios .noMeGusta-Button:hover {
     background-color: #27ae60; /* Verde pastel más oscuro al pasar el mouse */
+}
+
+#Informacion-Producto {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Para centrar horizontalmente el contenido */
+  margin-top: 150px;
+}
+
+#Informacion-detallada {
+  display: flex;
+  justify-content: space-between; /* Para que los elementos estén uno al lado del otro */
+  width: 100%; /* Opcional: Asegura que ocupe todo el ancho disponible */
+  padding-left: 20px;
+}
+
+
+/* Estilo adicional según tus preferencias */
+#Nombre-Producto h1 {
+  font-size: 24px;
+}
+
+#Precio-producto h1 {
+  font-size: 18px;
+}
+
+#Descripcion-producto p {
+  font-size: 16px;
+  margin-top: 10px; /* Espaciado superior */
+}
+
+/* Estilo para las secciones dentro de informacion-variada */
+#informacion-variada h3 {
+  font-size: 16px;
+}
+
+
+#Informacion-Producto{
+    margin: 0 auto;
+    height: 80vh;
+    width: 95vw;
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 2px double;
+}
+#Informacion-Producto #IMG-Producto{
+    height: 100%;
+    width: 50%;
+}
+
+#Informacion-Producto #IMG-Producto img{
+    margin-top: 50px;
+    max-height: 80%;
+    max-width: 80%;
+    min-width: 50%;
+    min-height: 50%;
+    width: auto;
+    height: auto;
+}
+
+
+#Informacion-detallada{
+    border-radius: 15px;
+    border: 4px double;
+    margin-right: 5%;
+    width: 45%;
+    height: 90%;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#Informacion{
+    margin-top: 0;
+    height: fit-content;
+    align-items: flex-end;
+    text-align: left;
+}
+#informacion-variada{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-content: center;
+}
+#informacion-variada h3{
+    color: #d69ee7;
+    margin: 0 auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#Precio-producto{
+    color: #27ae60;
+}
+
+#Botones-De-Compra{
+    margin: 0 auto;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    display: flex;
+    flex-direction: row;
+}
+#Botones-De-Compra button{
+    margin: 0px 10px 0px 10px;
+    padding: 5px;
+    color: #ccc;
+    border: none;
+    border-radius: 5px;
+}
+#Botones-De-Compra div{
+    margin: 0px 10px 0px 10px;
+    width: fit-content;
+    padding: 5px;
+    color: #ccc;
+    border: none;
+    border-radius: 5px;
+    background-color: #f06cae;
+}
+
+#comprar{
+    background-color: #2ecc71;
+    width: 100px;
+
+}
+#carro{
+    background-color: #cc2e7d;
+    width: 100px;
+}
+#Cantidad-h3{
+    margin: 0 auto;
+    margin-top: 5px;
+    padding: 2.5px;
+    border: 2px solid;
+    border-radius: 15px;
+    width: fit-content;
+    height: fit-content;
+    background-color: #3498db;
+    color: #ffffff;
+}
+#Cantidad-h3 input{
+    width: 50px;
+    border-radius: 15px;
+} 
+#Botones-De-Compra button:hover,
+#Botones-De-Compra div:hover{
+    margin: 0px 10px 0px 10px;
+    width: fit-content;
+    padding: 10px;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
 }
 /* Media queries */
 @media (max-width: 768px) {

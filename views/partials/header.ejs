@@ -40,10 +40,16 @@
                 <div class="ico_d ico_serv">
                     <img class="iconos" src="/icos/billetera.png" alt=""> <h3 class="ico_text">Negocios</h3>
                     <ul class="compras">
-                        <li><a href=""><i class="fa-solid fa-bone"></i>Mis juguetes</a></li>
-                        <li><a href=""><i class="fa-solid fa-cookie"></i>Tengo hambre</a></li>
-                        <li><a href=""><i class="fa-solid fa-glasses"></i>Soy fashion</a></li>
-                        <li><a href=""><i class="fa-solid fa-money-bill"></i>Te lo Vendo</a></li>
+                        <li><a id="Ventas-Button"><i class="fa-solid fa-dollar-sign"></i>Mis Productos</a></li>
+                        <li><a onclick="document.write('...')
+                            window.location.href = 'juguetes/'"><i class="fa-solid fa-bone"></i>Mis juguetes</a></li>
+                        <li><a onclick="document.write('...')
+                            window.location.href = 'comida/'"><i class="fa-solid fa-cookie"></i>Tengo hambre</a></li>
+                        <li><a onclick="document.write('...')
+                            window.location.href = 'accesorios/'"><i class="fa-solid fa-glasses"></i>Soy fashion</a></li>
+                        <% if(rol === 1){%>
+                        <li><a id="a-Vender"><i class="fa-solid fa-money-bill"></i>Te lo Vendo</a></li>
+                            <%}%>
                     </ul>
                 </div>
                 <div class="ico_t ico_serv">
@@ -66,6 +72,7 @@
     </div>
 
     <script src="/js/header.js"></script>
+    <script src="/js/header2.js"></script>
 
     <%- include("./register.ejs") %>
 

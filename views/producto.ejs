@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/estilo.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="shortcut icon" href="/img/ico.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/css/form.css">
+        <!--<script src="/js/publicity.js"></script>-->
+        <title><%= producto.nombre %></title>
+    </head>
+    <body>
+        <%- include("./partials/header.ejs") %>
+        <% if (login) { %>
+        <script>
+            const log = document.querySelector('.ingresa');
+            const sign = document.querySelector('.register');
+            const cuent = document.querySelector('.cuenta');
+            
+            log.style.visibility = "hidden";
+            sign.style.visibility = "hidden";
+            cuent.style.visibility = "visible";
+        </script>
+        <% } else {%>
+        <script>
+                log.style.visibility = "visible";
+                sign.style.visibility = "visible";
+                cuent.style.visibility = "hidden";
+            </script>
+        <% } %>
+
+        <!-- <div id="adlateral1"></div>
+    <div id="adlateral2"></div> -->
+
+        <div class="main">
+            <div id="Informacion-Producto" style="margin-top: 150px;">
+                <div id="IMG-Producto">
+                    <img
+                        src="data:image/jpeg;base64,<%= producto.imagen_producto.toString('base64') %>"
+                        alt="Imagen del producto">
+                </div>
+                <div id="Informacion-detallada">
+                    <div id="Informacion">
+                        <h1 id="Nombre-Producto"><%= producto.nombre %></h1>
+                        <h2 id="Precio-producto"> $ <%= producto.precio %> COP
+                        </h2>
+                        <p id="Descripcion-producto"
+                            style="white-space: pre-line;">
+                            <%= producto.descripcion %>
+                        </p>
+                    </div>
+                    <div id="informacion-variada">
+                        <h3> Categoria: <%=producto.categoria%></h3>
+                        <h3> Dimenciones: <%=producto.dimensiones%></h3>
+                        <h3> Stock: <%=producto.stock%></h3>
+                    </div>
+                </div>
+            </div>
+            <%if(login){%>
+            <h3 id="Cantidad-h3">cantidad<input type="number" name="cantidad"></h3>
+            <%}%>
+
+            <div id="Botones-De-Compra">
+                <%if(login){%>
+                    <button id="comprar" onclick="comprar(<%=producto.id_producto%>,'<%=encodeURIComponent(producto.nombre)%>',document.querySelector('input[name=cantidad]').value,<%=producto.precio%>,<%=producto.id_usuario%>,<%=producto.stock%>)">Comprar</button>
+                <button id="carro" onclick="alCarrito(<%=producto.id_producto%>, document.querySelector('input[name=cantidad]').value)">Al Carrito</button>
+                <%}else{%>
+                <div id="inicia-sesion" onclick="abrirmodal()">Inicia Sesion Para
+                    Comprar</div>
+                <%}%>
+            </div>
+        </div>
+        <%- include("./partials/footer.ejs") %>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <% if(typeof alert != "undefined"){%>
+        <script>
+            Swal.fire({
+                title:'<%= alertTitle %>',
+                text:'<%= alertMessage %>',
+                icon:'<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location.href='/<%= ruta %>'
+            })
+        </script>
+        <% } %>
+        <script src="/js/funcionesAsync.js"></script>
+    </body>
+</html>

@@ -11,6 +11,13 @@ abrirr.addEventListener('click', (e)=>{
 
 });
 
+
+function abrirmodal(){
+  modalcc.style.opacity = "1";
+  modalcc.style.visibility = "visible";
+  modall.classList.toggle('modal-closee');
+  }
+
 cerrarr.addEventListener('click', ()=>{
   modall.classList.toggle('modal-closee');
 
@@ -21,7 +28,6 @@ cerrarr.addEventListener('click', ()=>{
 });
 
 window.addEventListener('click', (e)=>{
-  console.log(e.target)
   if(e.target == modalcc){
     modall.classList.toggle('modal-closee');
   

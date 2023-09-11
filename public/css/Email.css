@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Puritan', sans-serif;
+}
+
+body {
+    background-image: url("/img/fondo.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo semi-transparente para legibilidad */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px; /* Ancho máximo para que el contenido no sea demasiado ancho */
+    margin: 0 auto; /* Centra el contenido en la pantalla */
+}
+
+#Titulo_Empresa {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#Titulo_Empresa h1 {
+    color: #333;
+    font-size: 32px;
+}
+
+#Titulo_Empresa h4 {
+    color: #666;
+    font-size: 18px;
+}
+
+#Asunto_Email {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#Asunto_Email h2 {
+    color: #333;
+    font-size: 24px;
+}
+
+#CuerpoEmail {
+    text-align: left;
+    color: #444;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+/* Personaliza el estilo de los enlaces si es necesario */
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+/* Agrega cualquier estilo adicional según tus preferencias */

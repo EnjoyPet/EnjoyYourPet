@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/estilo.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="shortcut icon" href="/img/ico.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/css/form.css">
+        <!--<script src="/js/publicity.js"></script>-->
+        <title>Tu mascota</title>
+    </head>
+    <body>
+        <%- include("./partials/header.ejs") %>
+        <% if (login) { %>
+        <script>
+            const log = document.querySelector('.ingresa');
+            const sign = document.querySelector('.register');
+            const cuent = document.querySelector('.cuenta');
+            
+            log.style.visibility = "hidden";
+            sign.style.visibility = "hidden";
+            cuent.style.visibility = "visible";
+        </script>
+        <% } else {%>
+        <script>
+                log.style.visibility = "visible";
+                sign.style.visibility = "visible";
+                cuent.style.visibility = "hidden";
+            </script>
+        <% } %>
+        <div class="main">
+            <div class="container-post_form" style="padding-top: 20vh;">
+                <form action="PublicarUnaVenta" method="post"
+                    enctype="multipart/form-data">
+                    <label for="nombre">Titulo</label>
+                    <input type="text" name="nombre" id="nombre_producto"
+                        placeholder="nombre" maxlength="100" required>
+                    <label for="descripcion">descripcion</label>
+                    <textarea name="descripcion" id="descripcion_producto"
+                        maxlength="500" required></textarea>
+                    <section>
+                        <div>
+                            <label for="stock">stock</label>
+                            <input name="stock" type="number"
+                                placeholder="15" required>
+                        </div>
+                        <div>
+                            <label for="precio">precio</label>
+                            <input name="precio" type="number"
+                                placeholder="5000" required>
+                        </div>
+                    </section>
+                    <label for="imagen_post">Imagen</label>
+                    <input type="file" name="imagen_post" id="imagen_post" accept="image/*">
+                    <img id="imagen_preview" src="#" alt="Imagen previa" />
+                    <label for="dimenciones">Dimenciones</label>
+                    <input type="text" name="dimenciones"
+                        id="dimenciones_producto"
+                        placeholder="Dimenciones" maxlength="100" required>
+                    <label for="Categoria"></label>
+                    <select name="Categoria" id="Categoria_post" required>
+                        <option value="7">Comida</option>
+                        <option value="8">Juguetes</option>
+                        <option value="9">Accesorios</option>
+                    </select>
+                    <button type="submit">Postear</button>
+                </form>
+                <script src="js/imagenesEnForm.js"></script>
+            </div>
+        </div>
+        <script src="js/header2.js"></script>
+        <script src="/public/js/header.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <% if(typeof alert != "undefined"){%>
+        <script>
+            Swal.fire({
+                title:'<%= alertTitle %>',
+                text:'<%= alertMessage %>',
+                icon:'<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                console.log("guardado");
+            })
+        </script>
+        <% } %>
+        <%- include("./partials/footer.ejs") %>
+    </body>
+</html>
