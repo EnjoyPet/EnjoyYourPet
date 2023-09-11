@@ -11,8 +11,7 @@
         <link rel="stylesheet" href="/css/form.css">
         <title>petfriendly</title>
         <!-- Agrega la API key de Google Maps y la librería Places aquí -->
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA49umZWhP2AiFaREAIRzLb_bH5EF79vqo&libraries=places"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=" + process.env.GOOGLE_MAPS_API_KEY + "&libraries=places"></script>
     </head>
     <body>
         <%- include("./partials/header.ejs") %>
